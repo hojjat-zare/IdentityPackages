@@ -1,4 +1,6 @@
+using ApplicationCore.Interfaces;
 using Infrastructure.Identity;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -34,6 +36,7 @@ namespace RoleBaseApi
                     .AddDefaultTokenProviders();
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
+            services.AddTransient<IEmailSender, EmailSender>();
 
 
             services.AddControllers();

@@ -36,10 +36,8 @@ namespace RoleBaseApi.AuthEndpoints
         {
             var response = new AuthenticateResponse();
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-            //var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
-            var result = await _signInManager.PasswordSignInAsync(request.Username, request.Password, false, true);
+            // This count login failures towards account lockout
+            var result = await _signInManager.PasswordSignInAsync(request.Username, request.Password, request.RemmemberMe, true);
 
             response.Result = result.Succeeded;
             response.IsLockedOut = result.IsLockedOut;
