@@ -37,6 +37,7 @@ namespace RoleBaseApi
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<ITokenClaimsService, IdentityTokenClaimService>();
 
 
             services.AddControllers();

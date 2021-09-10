@@ -10,6 +10,6 @@ namespace ApplicationCore.Constants
         //public const string DEFAULT_PASSWORD = "Pass@word1";
 
         // TODO: Change this to an environment variable
-        public static readonly string JWT_SECRET_KEY = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
+        public static readonly string JWT_SECRET_KEY = "SecretKeyOfDoomThatMustBeAMinimumNumberOfBytes";
     }
 }
