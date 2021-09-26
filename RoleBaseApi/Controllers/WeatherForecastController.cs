@@ -26,7 +26,7 @@ namespace RoleBaseApi.Controllers
         }
 
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize()]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
