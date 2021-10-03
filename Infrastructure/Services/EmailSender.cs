@@ -1,9 +1,9 @@
 ﻿using ApplicationCore.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using MailKit.Net.Smtp;
+using MailKit;
+using MimeKit;
+using MimeKit.Text;
 
 namespace Infrastructure.Services
 {
@@ -11,10 +11,40 @@ namespace Infrastructure.Services
     // For more details see https://go.microsoft.com/fwlink/?LinkID=532713
     public class EmailSender : IEmailSender
     {
-        public Task SendEmailAsync(string email, string subject, string message)
+        private string _password { get; set; }
+        private string _userName { get; set; }
+        private int _port { get; set; }
+        private string _hostAddress { get; set; }
+
+        public EmailSender(string userName,string password, string hostAddress = "smtp.gmail.com", int port = 465)
         {
-            // TODO: Wire this up to actual email sending logic via SendGrid, local SMTP, etc.
-            return Task.CompletedTask;
+            _userName = userName;
+            _password = password;
+            _hostAddress = hostAddress;
+            _port = port;
+        }
+        public async Task SendEmailAsync(string destinationEmailAddr, string emailBody,string subject)
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("",_userName));
+            message.To.Add(new MailboxAddress("",destinationEmailAddr));
+            message.Subject = subject;
+
+            message.Body = new TextPart(TextFormat.Html)
+            {
+                Text = emailBody
+            };
+
+            using (var client = new SmtpClient())
+            {
+                await client.ConnectAsync(_hostAddress,_port, true);
+
+                // Note: only needed if the SMTP server requires authentication
+                await client.AuthenticateAsync(_userName, _password);
+
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+            }
         }
     }
 }
