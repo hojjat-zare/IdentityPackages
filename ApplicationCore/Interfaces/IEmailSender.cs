@@ -3,6 +3,6 @@ namespace ApplicationCore.Interfaces
 {
     public interface IEmailSender
     {
-        Task SendEmailAsync(string destinationEmailAddr, string emailBody, string subject);
+        Task SendEmailAsync(string destinationEmailAddr, string subject, string emailBody);
     }
 }

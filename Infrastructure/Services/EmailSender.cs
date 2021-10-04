@@ -23,7 +23,7 @@ namespace Infrastructure.Services
             _hostAddress = hostAddress;
             _port = port;
         }
-        public async Task SendEmailAsync(string destinationEmailAddr, string emailBody,string subject)
+        public async Task SendEmailAsync(string destinationEmailAddr, string subject, string emailBody)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("",_userName));

@@ -40,7 +40,7 @@ namespace RoleBaseApi
                     .AddDefaultTokenProviders();
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
-            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IEmailSender>(sender => new EmailSender(EmailSendingConstants.EmailAddress,EmailSendingConstants.Password));
             services.AddTransient<ITokenClaimsService, IdentityTokenClaimService>();
 
             #warning  TODO:configure JWT settings as you need

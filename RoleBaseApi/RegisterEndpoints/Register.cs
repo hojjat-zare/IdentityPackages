@@ -4,6 +4,7 @@ using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,7 +17,6 @@ namespace RoleBaseApi.RegisterEndpoints
         .WithRequest<RegisterRequest>
         .WithResponse<RegisterResponse>
     {
-
         private SignInManager<ApplicationUser> _signInManager{ get; set; }
         private UserManager<ApplicationUser> _userManager { get; set; }
         public IEmailSender _emailSender{ get; set; }
