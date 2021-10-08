@@ -6,19 +6,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RoleBaseApi
 {
@@ -35,15 +30,24 @@ namespace RoleBaseApi
         public void ConfigureServices(IServiceCollection services)
         {
             ///////////// Identity services ////////////////////////////////////
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = true;
+#warning  TODO:enable RequireUniqueEmail fro production
+                //config.User.RequireUniqueEmail = true;
+                config.User.AllowedUserNameCharacters =
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-";
+
+                config.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+            })
                     .AddEntityFrameworkStores<AppIdentityDbContext>()
                     .AddDefaultTokenProviders();
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
-            services.AddTransient<IEmailSender>(sender => new EmailSender(EmailSendingConstants.EmailAddress,EmailSendingConstants.Password));
+            services.AddTransient<IEmailSender>(sender => new EmailSender(EmailSendingConstants.EmailAddress, EmailSendingConstants.Password));
             services.AddTransient<ITokenClaimsService, IdentityTokenClaimService>();
 
-            #warning  TODO:configure JWT settings as you need
+#warning  TODO:configure JWT settings as you need
             var key = Encoding.ASCII.GetBytes(AuthorizationConstants.JWT_SECRET_KEY);
             services.AddAuthentication(config =>
             {
@@ -83,7 +87,7 @@ namespace RoleBaseApi
 
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
 
             app.UseEndpoints(endpoints =>
             {

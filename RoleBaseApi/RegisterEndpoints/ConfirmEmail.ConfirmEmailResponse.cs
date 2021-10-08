@@ -8,6 +8,6 @@ namespace RoleBaseApi.RegisterEndpoints
 {
     public class ConfirmEmailResponse : BaseResponse
     {
-        public bool IsEmailConfirmed { get; set; }
+        public string Message { get; set; }
     }
 }

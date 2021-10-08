@@ -2,6 +2,7 @@
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,19 @@ namespace RoleBaseApi.RegisterEndpoints
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public async override Task<ActionResult<ConfirmEmailResponse>> HandleAsync(ConfirmEmailRequest request, CancellationToken cancellationToken = default)
+        public ConfirmEmail(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
+        [HttpGet("api/ConfirmEmail")]
+        [SwaggerOperation(
+            Summary = "Confirm Email",
+            Description = "Confirm Email",
+            OperationId = "ConfirmEmail",
+            Tags = new[] { "ConfirmEmailEndpoints" })
+        ]
+        public async override Task<ActionResult<ConfirmEmailResponse>> HandleAsync([FromQuery]ConfirmEmailRequest request, CancellationToken cancellationToken = default)
         {
             if (request.userId == null || request.code == null)
             {
@@ -35,7 +48,7 @@ namespace RoleBaseApi.RegisterEndpoints
                 throw new InvalidOperationException($"Error confirming email for user with ID '{request.userId}':");
             }
 
-            return new ConfirmEmailResponse();
+            return new ConfirmEmailResponse() { Message = "your email confirmed successfully"};
         }
     }
 }

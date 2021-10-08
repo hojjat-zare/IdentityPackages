@@ -8,7 +8,7 @@ namespace RoleBaseApi.RegisterEndpoints
 {
     public class ConfirmEmailRequest : BaseRequest
     {
-        public string userId;
-        public string code;
+        public string userId { get; set; }
+        public string code { get; set; }
     }
 }

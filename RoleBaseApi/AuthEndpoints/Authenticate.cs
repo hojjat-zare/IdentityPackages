@@ -41,7 +41,7 @@ namespace RoleBaseApi.AuthEndpoints
 
             response.Result = result.Succeeded;
             response.IsLockedOut = result.IsLockedOut;
-            response.IsNotAllowed = result.IsNotAllowed;
+            response.IsNotAllowed = result.IsNotAllowed; // means reqire email or phone confirmation
             response.RequiresTwoFactor = result.RequiresTwoFactor;
             response.Username = request.Username;
 
