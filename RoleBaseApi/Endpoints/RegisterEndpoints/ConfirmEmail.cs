@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RoleBaseApi.RegisterEndpoints
+namespace RoleBaseApi.Endpoints.RegisterEndpoints
 {
     public class ConfirmEmail : BaseAsyncEndpoint
         .WithRequest<ConfirmEmailRequest>

@@ -1,7 +1,7 @@
 ﻿using RoleBaseApi.BaseViewModels;
 
 
-namespace RoleBaseApi.RegisterEndpoints
+namespace RoleBaseApi.Endpoints.RegisterEndpoints
 {
     public class RegisterResponse:BaseResponse
     {

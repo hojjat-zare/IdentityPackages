@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RoleBaseApi.AuthEndpoints
+namespace RoleBaseApi.Endpoints.AuthEndpoints
 {
     public class AuthenticateResponse:BaseResponse
     {

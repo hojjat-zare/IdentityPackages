@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 
 
-namespace RoleBaseApi.RegisterEndpoints
+namespace RoleBaseApi.Endpoints.RegisterEndpoints
 {
     public class Register : BaseAsyncEndpoint
         .WithRequest<RegisterRequest>

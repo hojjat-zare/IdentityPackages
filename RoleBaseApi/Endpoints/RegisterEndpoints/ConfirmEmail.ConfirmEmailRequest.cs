@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RoleBaseApi.RegisterEndpoints
+namespace RoleBaseApi.Endpoints.RegisterEndpoints
 {
     public class ConfirmEmailRequest : BaseRequest
     {

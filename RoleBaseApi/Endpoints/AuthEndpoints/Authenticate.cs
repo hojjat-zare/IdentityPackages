@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace RoleBaseApi.AuthEndpoints
+namespace RoleBaseApi.Endpoints.AuthEndpoints
 {
     public class Authenticate: BaseAsyncEndpoint
         .WithRequest<AuthenticateRequest>

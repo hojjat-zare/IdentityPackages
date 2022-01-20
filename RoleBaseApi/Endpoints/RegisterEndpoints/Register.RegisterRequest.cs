@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 
-namespace RoleBaseApi.RegisterEndpoints
+namespace RoleBaseApi.Endpoints.RegisterEndpoints
 {
     public class RegisterRequest:BaseRequest
     {
