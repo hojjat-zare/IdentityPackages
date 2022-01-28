@@ -22,7 +22,7 @@ namespace RoleBaseApi.Endpoints.RegisterEndpoints
             _userManager = userManager;
         }
 
-        [HttpGet("api/ConfirmEmail")]
+        [HttpGet("api/confirm-email")]
         [SwaggerOperation(
             Summary = "Confirm Email",
             Description = "Confirm Email",

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RoleBaseApi.BaseViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace RoleBaseApi.Endpoints.UserEndpoint
 {
-    public class CreateRequeste
+    public class CreateRequeste : BaseRequest
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Username")]
         public string Username { get; set; }
 
 

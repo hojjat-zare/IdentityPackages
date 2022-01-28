@@ -28,7 +28,7 @@ namespace RoleBaseApi.Endpoints.RegisterEndpoints
         }
 
 
-        [HttpPost("api/Register")]
+        [HttpPost("api/register")]
         [SwaggerOperation(
             Summary = "Register a user",
             Description = "Register a user",
