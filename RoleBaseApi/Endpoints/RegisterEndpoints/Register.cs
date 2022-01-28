@@ -18,13 +18,11 @@ namespace RoleBaseApi.Endpoints.RegisterEndpoints
         .WithRequest<RegisterRequest>
         .WithResponse<RegisterResponse>
     {
-        private SignInManager<ApplicationUser> _signInManager{ get; set; }
         private UserManager<ApplicationUser> _userManager { get; set; }
         public IEmailSender _emailSender{ get; set; }
 
         public Register(SignInManager<ApplicationUser> signInManager,UserManager<ApplicationUser> userManager,IEmailSender emailSender)
         {
-            _signInManager = signInManager;
             _userManager = userManager;
             _emailSender = emailSender;
         }
