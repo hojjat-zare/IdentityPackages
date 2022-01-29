@@ -34,7 +34,8 @@ namespace RoleBaseApi.Endpoints.UserEndpoint
                 {
                     UserName = request.Username,
                     Email = request.Email,
-                    EmailConfirmed = request.IsEmailConfirmed
+                    EmailConfirmed = request.IsEmailConfirmed,
+                    PhoneNumber = request.PhoneNumber
                 };
                 var result = await _userManager.CreateAsync(user,request.Password);
                 if (result.Succeeded)
