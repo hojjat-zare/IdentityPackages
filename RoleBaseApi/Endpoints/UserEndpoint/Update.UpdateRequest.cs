@@ -21,5 +21,7 @@ namespace RoleBaseApi.Endpoints.UserEndpoint
 
         [Phone]
         public string PhoneNumber { get; set; } = null;
+
+        public string[] Roles { get; set; } = null;
     }
 }
