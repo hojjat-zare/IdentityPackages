@@ -42,8 +42,11 @@ namespace RoleBaseApi.Endpoints.UserEndpoint
                 {
                     var resultOfUpdateUser = await _userManager.UpdateAsync(user);
                     var resultOfUpdateRoles = await _userManager.AddToRolesAsync(user, request.Roles);
-                    if (resultOfUpdateUser.Succeeded && resultOfUpdateRoles.Succeeded) return Ok();
-
+                    if (resultOfUpdateUser.Succeeded && resultOfUpdateRoles.Succeeded)
+                    {
+                        scope.Complete();
+                        return Ok();
+                    }
                     foreach (var error in resultOfUpdateUser.Errors)
                     {
                         ModelState.AddModelError("errors", error.Description);
@@ -52,7 +55,6 @@ namespace RoleBaseApi.Endpoints.UserEndpoint
                     {
                         ModelState.AddModelError("errors", error.Description);
                     }
-                    scope.Complete();
                 }
             }
             return BadRequest(ModelState);

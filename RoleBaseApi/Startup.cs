@@ -33,7 +33,7 @@ namespace RoleBaseApi
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
                 config.SignIn.RequireConfirmedEmail = true;
-#warning  TODO:enable RequireUniqueEmail fro production
+#warning  TODO:enable RequireUniqueEmail for production
                 //config.User.RequireUniqueEmail = true;
                 config.User.AllowedUserNameCharacters =
                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-";
