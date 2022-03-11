@@ -38,24 +38,32 @@ namespace RoleBaseApi.Endpoints.UserEndpoint
                 user.Email = request.Email ?? user.Email;
                 user.EmailConfirmed = request.IsEmailConfirmed ?? user.EmailConfirmed ;
                 user.PhoneNumber = request.PhoneNumber ?? user.PhoneNumber;
-                using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                try
                 {
-                    var resultOfUpdateUser = await _userManager.UpdateAsync(user);
-                    var resultOfUpdateRoles = await _userManager.AddToRolesAsync(user, request.Roles);
-                    if (resultOfUpdateUser.Succeeded && resultOfUpdateRoles.Succeeded)
+                    using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                     {
-                        scope.Complete();
-                        return Ok();
-                    }
-                    foreach (var error in resultOfUpdateUser.Errors)
-                    {
-                        ModelState.AddModelError("errors", error.Description);
-                    }
-                    foreach (var error in resultOfUpdateRoles.Errors)
-                    {
-                        ModelState.AddModelError("errors", error.Description);
+                        var resultOfUpdateUser = await _userManager.UpdateAsync(user);
+                        var resultOfUpdateRoles = await _userManager.AddToRolesAsync(user, request.Roles);
+                        if (resultOfUpdateUser.Succeeded && resultOfUpdateRoles.Succeeded)
+                        {
+                            scope.Complete();
+                            return Ok();
+                        }
+                        foreach (var error in resultOfUpdateUser.Errors)
+                        {
+                            ModelState.AddModelError("errors", error.Description);
+                        }
+                        foreach (var error in resultOfUpdateRoles.Errors)
+                        {
+                            ModelState.AddModelError("errors", error.Description);
+                        }
                     }
                 }
+                catch (InvalidOperationException e)
+                {
+                    ModelState.AddModelError("errors",  e.Message);
+                }
+                
             }
             return BadRequest(ModelState);
         }

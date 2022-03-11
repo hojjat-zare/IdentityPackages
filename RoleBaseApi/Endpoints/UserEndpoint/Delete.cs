@@ -1,5 +1,7 @@
 ﻿using Ardalis.ApiEndpoints;
 using Infrastructure.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -8,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace RoleBaseApi.Endpoints.UserEndpoint
 {
+    [Authorize(Roles = "Admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class Delete : BaseAsyncEndpoint.WithRequest<DeleteRequest>.WithoutResponse
     {
         private readonly UserManager<ApplicationUser> _userManager;
